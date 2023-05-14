@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/todo_app_absolute_beginner.iml" filepath="$PROJECT_DIR$/.idea/todo_app_absolute_beginner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/todo_app_absolute_beginner_android.iml" filepath="$PROJECT_DIR$/android/todo_app_absolute_beginner_android.iml" />
     </modules>
   </component>
 </project>

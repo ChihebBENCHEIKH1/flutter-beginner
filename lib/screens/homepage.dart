@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import '../models/db_model.dart';
 import '../models/todo_model.dart';
@@ -13,20 +16,28 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   // we have to create our functions here, where the two widgets can communicate
-
-  // create a database object so we can access database functions
-  var db = DatabaseConnect();
-
   // function to add todo
   void addItem(Todo todo) async {
-    await db.insertTodo(todo);
-    setState(() {});
+    print(todo.creationDate);
+    final DatabaseReference database1 =
+    FirebaseDatabase.instance.reference();
+    final newTaskRef = database1.child('tasks').push(); // get a reference to the new child location
+    await newTaskRef.set({
+      'title': todo.title,
+      'date': todo.creationDate.toString(),
+      'status': todo.isChecked,
+    });
   }
 
   // function to delete todo
   void deleteItem(Todo todo) async {
-    await db.deleteTodo(todo);
-    setState(() {});
+    final DatabaseReference database1 = FirebaseDatabase.instance.reference();
+    String id=todo.id as String;
+    database1.child('tasks').child(id).remove().then((_) {
+      print('Task status updated successfully.');
+    }).catchError((error) {
+      print('Failed to update task status: $error');
+    });
   }
 
   @override

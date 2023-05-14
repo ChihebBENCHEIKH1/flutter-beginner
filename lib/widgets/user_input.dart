@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../models/todo_model.dart';
 
 class UserInput extends StatelessWidget {
@@ -35,9 +36,11 @@ class UserInput extends StatelessWidget {
           GestureDetector(
             onTap: () {
               // create a todo
+              DateTime now=DateTime.now();
+              String date=DateFormat('yyyy-MM-dd – kk:mm').format(now);
               var myTodo = Todo(
                   title: textController.text,
-                  creationDate: DateTime.now(),
+                  creationDate:date,
                   isChecked: false);
               // pass this to the insertfunction as parameter
               insertFunction(myTodo);

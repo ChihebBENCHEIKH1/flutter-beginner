@@ -1,7 +1,7 @@
 class Todo {
-  int? id;
+  String? id;
   final String title;
-  DateTime creationDate;
+  String creationDate;
   bool isChecked;
 
   // create the constructor
@@ -19,7 +19,7 @@ class Todo {
       'id': id,
       'title': title,
       'creationDate': creationDate
-          .toString(), // sqflite database doesn't support the datetime type so we will save it as Text.
+        , // sqflite database doesn't support the datetime type so we will save it as Text.
       'isChecked': isChecked
           ? 1
           : 0, // it doesn't support the boolean either, so we save that as integer.

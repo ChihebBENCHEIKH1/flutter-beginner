@@ -5,9 +5,9 @@ import '../models/todo_model.dart';
 // ignore: must_be_immutable
 class Todocard extends StatefulWidget {
   // create varibles that a todocard will receive data for
-  final int id;
+  final String id;
   final String title;
-  final DateTime creationDate;
+  final String creationDate;
   bool isChecked;
   final Function insertFunction;
   final Function deleteFunction;
@@ -68,8 +68,7 @@ class _TodocardState extends State<Todocard> {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  DateFormat('dd MMM yyyy - hh:mm aaa')
-                      .format(widget.creationDate),
+                widget.creationDate,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

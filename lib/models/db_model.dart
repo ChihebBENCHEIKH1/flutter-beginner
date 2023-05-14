@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:sqflite/sqflite.dart'; // sqflite for database
 import 'package:path/path.dart'; // the path package
 import './todo_model.dart'; // the todo model we created before
@@ -37,20 +38,10 @@ class DatabaseConnect {
   }
 
   // function to add data into our database
-  Future<void> insertTodo(Todo todo) async {
-    // get the connection to database
-    final db = await database;
-    // insert the todo
-    await db.insert(
-      'todo', // the name of our table
-      todo.toMap(), // the function we created in our todo_model
-      conflictAlgorithm:
-          ConflictAlgorithm.replace, // this will replace the duplicate entry
-    );
-  }
+
 
   // function to delete a  todo from our database
-  Future<void> deleteTodo(Todo todo) async {
+  /*Future<void> deleteTodo(Todo todo) async {
     final db = await database;
     // delete the todo from database based on its id.
     await db.delete(
@@ -58,34 +49,46 @@ class DatabaseConnect {
       where: 'id == ?', // this condition will check for id in todo list
       whereArgs: [todo.id],
     );
-  }
+  }*/
 
   // function to fetch all the todo data from our database
-  Future<List<Todo>> getTodo() async {
-    final db = await database;
-    // query the database and save the todo as list of maps
-    List<Map<String, dynamic>> items = await db.query(
-      'todo',
-      orderBy: 'id DESC',
-    ); // this will order the list by id in descending order.
-    // so the latest todo will be displayed on top.
+  /*Future<List<Todo>> getTodo() async {
+    final databaseReference = FirebaseDatabase.instance.reference();
+    final items = <Map<String, dynamic>>[];
+    databaseReference.child('todo').onValue.listen((event) {
+      final data = event.snapshot.value as Map<String, dynamic>?;
+      if (data != null) {
 
-    // now convert the items from list of maps to list of todo
+        data.forEach((key, value) {
+          final todoItem = {
+            'id': key.toString(),
+            'title': value['title'] ?? '',
+            'creationDate': value['creationDate'] ?? '',
+            'isChecked': value['isChecked'] ?? false,
+          };
+          print(value+"\n");
+          items.add(todoItem);
+        });
+
+        // Do something with the todoList
+      }
+    });
 
     return List.generate(
       items.length,
-      (i) => Todo(
-        id: items[i]['id'],
-        title: items[i]['title'],
-        creationDate: DateTime.parse(items[i][
-            'creationDate']), // this is in Text format right now. let's convert it to dateTime format
-        isChecked: items[i]['isChecked'] == 1
+          (i) => Todo(
+          id: items[i]['id'],
+          title: items[i]['title'],
+          creationDate: DateTime.parse(items[i][
+          'date']), // this is in Text format right now. let's convert it to dateTime format
+          isChecked: true/*items[i]['isChecked'] ==
             ? true
             : false, // this will convert the Integer to boolean. 1 = true, 0 = false.
+            */
       ),
     );
   }
-
+*/
   // ------- not included in video--------
 
   // function for updating a todo in todoList

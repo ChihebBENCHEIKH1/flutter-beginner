@@ -1,2 +1,10 @@
 # This is a generated file; do not edit or check into version control.
-sqflite=/home/chiheb/.pub-cache/hosted/pub.dev/sqflite-2.2.6/
+cloud_firestore=/home/chiheb/.pub-cache/hosted/pub.dev/cloud_firestore-4.7.0/
+cloud_firestore_web=/home/chiheb/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.5.0/
+firebase_auth=/home/chiheb/.pub-cache/hosted/pub.dev/firebase_auth-4.6.0/
+firebase_auth_web=/home/chiheb/.pub-cache/hosted/pub.dev/firebase_auth_web-5.5.0/
+firebase_core=/home/chiheb/.pub-cache/hosted/pub.dev/firebase_core-2.12.0/
+firebase_core_web=/home/chiheb/.pub-cache/hosted/pub.dev/firebase_core_web-2.5.0/
+firebase_database=/home/chiheb/.pub-cache/hosted/pub.dev/firebase_database-10.2.0/
+firebase_database_web=/home/chiheb/.pub-cache/hosted/pub.dev/firebase_database_web-0.2.3/
+sqflite=/home/chiheb/.pub-cache/hosted/pub.dev/sqflite-2.2.8+2/
