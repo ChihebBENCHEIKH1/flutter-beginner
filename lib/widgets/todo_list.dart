@@ -9,10 +9,12 @@ class Todolist extends StatelessWidget {
   // create an object of database connect
   // to pass down to todocard, first our todolist have to receive the functions
   final Function insertFunction;
+  final Function editFunction;
   final Function deleteFunction;
   final db = FirebaseDatabase.instance.reference().child('tasks');
   Todolist(
-      {required this.insertFunction, required this.deleteFunction, Key? key})
+      {required this.insertFunction, required this.deleteFunction, Key? key,
+      required this.editFunction,String?keyItem})
       : super(key: key);
 
   @override
@@ -32,6 +34,7 @@ class Todolist extends StatelessWidget {
             isChecked: true,
             insertFunction: insertFunction,
             deleteFunction: deleteFunction,
+            editFunction:editFunction
           );
         },
       ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,11 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   // we have to create our functions here, where the two widgets can communicate
   // function to add todo
+  String key="";
+  bool isClicked=false;
   void addItem(Todo todo) async {
     print(todo.creationDate);
+
     final DatabaseReference database1 =
     FirebaseDatabase.instance.reference();
     final newTaskRef = database1.child('tasks').push(); // get a reference to the new child location
@@ -28,6 +32,35 @@ class _HomepageState extends State<Homepage> {
       'status': todo.isChecked,
     });
   }
+  Future<void> update (Todo todo)
+  async {
+    final DatabaseReference database1 =
+    FirebaseDatabase.instance.reference();
+    String key=todo.id as String;
+    final taskRef = database1.child('tasks').child(key); // Get a reference to the existing task
+    await taskRef.update({
+      'title': todo.title,
+      'date': todo.creationDate.toString(),
+      'status': todo.isChecked,
+    });
+    isClicked=false;
+
+  }
+  String editFunction(String key)
+  {
+    this.key=key;
+    this.isClicked=true;
+    print("key => "+key);
+    return this.key;
+  }
+  String getKey()
+  {
+    String key=this.key;
+    this.key="";
+    return key;
+
+  }
+
 
   // function to delete todo
   void deleteItem(Todo todo) async {
@@ -49,9 +82,9 @@ class _HomepageState extends State<Homepage> {
       backgroundColor: const Color(0xFFF5EBFF),
       body: Column(
         children: [
-          Todolist(insertFunction: addItem, deleteFunction: deleteItem),
+          Todolist(insertFunction: addItem, deleteFunction: deleteItem,editFunction:editFunction),
           // we will add our widgets here.
-          UserInput(insertFunction: addItem),
+          UserInput(insertFunction: addItem,update:update,getKeyFunction:getKey, ),
         ],
       ),
     );

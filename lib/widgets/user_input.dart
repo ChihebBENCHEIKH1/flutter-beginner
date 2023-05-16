@@ -4,11 +4,16 @@ import '../models/todo_model.dart';
 
 class UserInput extends StatelessWidget {
   final textController = TextEditingController();
-  final Function insertFunction; // this will receive the addItem function
-  UserInput({required this.insertFunction, Key? key}) : super(key: key);
+  final Function insertFunction;
+  final Function getKeyFunction;
+  final Function update;// this will receive the addItem function
+  UserInput({required this.insertFunction, Key? key,
+    required this.update,Key?todo,
+  required this.getKeyFunction}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String key=getKeyFunction();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
       // color: const Color(0xFFDAB5FF),
@@ -24,8 +29,8 @@ class UserInput extends StatelessWidget {
               ),
               child: TextField(
                 controller: textController,
-                decoration: const InputDecoration(
-                  hintText: 'add new todo',
+                decoration:  InputDecoration(
+                  hintText: key==null ? 'add new todo' : 'update todo',
                   border: InputBorder.none,
                 ),
               ),
@@ -43,7 +48,14 @@ class UserInput extends StatelessWidget {
                   creationDate:date,
                   isChecked: false);
               // pass this to the insertfunction as parameter
-              insertFunction(myTodo);
+              if(key.isEmpty)
+                insertFunction(myTodo);
+              else
+                {
+                  myTodo.id=key;
+                  update(myTodo);
+                }
+
             },
             child: Container(
               decoration: BoxDecoration(
